@@ -1,4 +1,7 @@
-package com.andersenlab.lesson2;
+package com.andersenlab.lesson2.entity;
+
+import com.andersenlab.lesson2.util.RandomTicketGenerator;
+import com.andersenlab.lesson2.util.StadiumSector;
 
 import java.math.BigDecimal;
 import java.time.Instant;
@@ -70,6 +73,12 @@ public class Ticket {
         return new Ticket();
     }
 
+    public static Ticket createRandomTicket() {
+        Ticket ticket = new Ticket();
+        ticket.setId(RandomTicketGenerator.generateRandomID());
+        return ticket;
+    }
+
     private static void validateId(String id) {
         if (id.length() > 4) {
             throw new IllegalArgumentException("Ticket's id must contains maximum 4 characters");
@@ -103,6 +112,14 @@ public class Ticket {
         Instant instant = Instant.ofEpochSecond(timestamp);
         LocalDateTime dateTime = LocalDateTime.ofInstant(instant, ZoneId.of("UTC"));
         return dateTime.toString();
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     @Override
