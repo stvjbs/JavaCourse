@@ -9,15 +9,5 @@ public class TicketService {
     static final int PRICE_IN_CENTS = 20000;
 
 
-    public static void main(String[] args) {
-        Ticket empty = Ticket.createTicket();
-        Ticket full = Ticket.createTicket(ID, VEGA_ARENA, EVENT_CODE,
-                EVENT_DATE_TIMESTAMP, false,
-                StadiumSector.B, MAX_BACKPACK_WEIGHT, PRICE_IN_CENTS);
-        Ticket limited = Ticket.createTicket(VEGA_ARENA, EVENT_CODE, EVENT_DATE_TIMESTAMP);
 
-        System.out.println(empty);
-        System.out.println(full);
-        System.out.println(limited);
-    }
 }

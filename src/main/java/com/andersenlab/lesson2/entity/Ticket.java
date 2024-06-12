@@ -1,11 +1,16 @@
-package com.andersenlab.lesson2;
+package com.andersenlab.lesson2.entity;
+
+import com.andersenlab.lesson2.abstraction.IdAbler;
+import com.andersenlab.lesson2.abstraction.Shareable;
+import com.andersenlab.lesson2.util.StadiumSector;
 
 import java.math.BigDecimal;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.util.Objects;
 
-public class Ticket {
+public class Ticket extends IdAbler implements Shareable {
     private final LocalDateTime createdAt = LocalDateTime.now();
     private String id;
     private String concertHall;
@@ -16,6 +21,7 @@ public class Ticket {
     private double maxBackpackWeight;
     private BigDecimal decimalPriceInCents;
 
+    // Constructors
     private Ticket(String id, String concertHall, String eventCode,
                    long time, boolean isPromo,
                    StadiumSector stadiumSector,
@@ -39,6 +45,7 @@ public class Ticket {
     private Ticket() {
     }
 
+    // Creators
     public static Ticket createTicket(String id, String concertHall, String eventCode,
                                       long time, boolean isPromo,
                                       StadiumSector stadiumSector,
@@ -70,6 +77,7 @@ public class Ticket {
         return new Ticket();
     }
 
+    // Validators and mappers
     private static void validateId(String id) {
         if (id.length() > 4) {
             throw new IllegalArgumentException("Ticket's id must contains maximum 4 characters");
@@ -95,14 +103,78 @@ public class Ticket {
 
     private static void validateEventTime(long time) {
         if (System.currentTimeMillis() / 1000 > time) {
-            throw new IllegalArgumentException("Ticket event time must be more than or equal to the current time");
+            throw new IllegalArgumentException("Ticket event" +
+                    " time must be more than or equal to the current time");
         }
     }
 
     private String mapToDate(long timestamp) {
         Instant instant = Instant.ofEpochSecond(timestamp);
-        LocalDateTime dateTime = LocalDateTime.ofInstant(instant, ZoneId.of("UTC"));
+        LocalDateTime dateTime = LocalDateTime
+                .ofInstant(instant, ZoneId.of("UTC"));
         return dateTime.toString();
+    }
+
+    // Getters and Setters
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public String getConcertHall() {
+        return concertHall;
+    }
+
+    public String getEventCode() {
+        return eventCode;
+    }
+
+    public long getTime() {
+        return time;
+    }
+
+    public boolean isPromo() {
+        return isPromo;
+    }
+
+    public StadiumSector getStadiumSector() {
+        return stadiumSector;
+    }
+
+    public double getMaxBackpackWeight() {
+        return maxBackpackWeight;
+    }
+
+    public BigDecimal getDecimalPriceInCents() {
+        return decimalPriceInCents;
+    }
+
+    public void setStadiumSector(StadiumSector stadiumSector) {
+        this.stadiumSector = stadiumSector;
+    }
+
+    public void setTime(long time) {
+        this.time = time;
+    }
+
+    // Overrides
+    @Override
+    public void share(String phoneNumber) {
+        System.out.printf("Share ticket with ID {%s} by phone {%s}.\n", id, phoneNumber);
+    }
+
+    @Override
+    public void share(String phoneNumber, String email) {
+        System.out.printf("Share ticket with ID {%s} by phone {%s}" +
+                " and by email {%s}.\n", id, phoneNumber, email);
+    }
+
+    @Override
+    public void print() {
+        System.out.println("Ticket ID: " + id);
     }
 
     @Override
@@ -118,5 +190,27 @@ public class Ticket {
                 ", createdAt=" + createdAt +
                 ", decimalPriceInCents=" + decimalPriceInCents +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Ticket ticket = (Ticket) o;
+        return time == ticket.time && isPromo == ticket.isPromo &&
+                Double.compare(maxBackpackWeight, ticket.maxBackpackWeight) == 0 &&
+                Objects.equals(createdAt, ticket.createdAt) &&
+                Objects.equals(id, ticket.id) &&
+                Objects.equals(concertHall, ticket.concertHall) &&
+                Objects.equals(eventCode, ticket.eventCode) &&
+                stadiumSector == ticket.stadiumSector &&
+                Objects.equals(decimalPriceInCents, ticket.decimalPriceInCents);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(createdAt, id, concertHall,
+                eventCode, time, isPromo, stadiumSector,
+                maxBackpackWeight, decimalPriceInCents);
     }
 }
