@@ -1,7 +1,10 @@
 package com.andersenlab.lesson2.entity;
 
 import com.andersenlab.lesson2.abstraction.IdAbler;
+import com.andersenlab.lesson2.abstraction.Printable;
 import com.andersenlab.lesson2.abstraction.Shareable;
+import com.andersenlab.lesson2.abstraction.annotation.NullChecker;
+import com.andersenlab.lesson2.abstraction.annotation.NullableWarning;
 import com.andersenlab.lesson2.util.StadiumSector;
 
 import java.math.BigDecimal;
@@ -10,15 +13,18 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Objects;
 
-public class Ticket extends IdAbler implements Shareable {
+public class Ticket extends IdAbler implements Shareable, Printable {
     private final LocalDateTime createdAt = LocalDateTime.now();
+    @NullableWarning
     private String id;
     private String concertHall;
     private String eventCode;
     private long time;
     private boolean isPromo;
+    @NullableWarning
     private StadiumSector stadiumSector;
     private double maxBackpackWeight;
+    @NullableWarning
     private BigDecimal decimalPriceInCents;
 
     // Constructors
@@ -54,7 +60,7 @@ public class Ticket extends IdAbler implements Shareable {
         validateConcertHall(concertHall);
         validateEventCode(eventCode);
         validateEventTime(time);
-        return new Ticket(id,
+        Ticket ticket = new Ticket(id,
                 concertHall,
                 eventCode,
                 time,
@@ -62,15 +68,19 @@ public class Ticket extends IdAbler implements Shareable {
                 stadiumSector,
                 maxBackpackWeight,
                 intPriceInCents);
+        NullChecker.checkObject(ticket);
+        return ticket;
     }
 
     public static Ticket createTicket(String concertHall, String eventCode, long time) {
         validateConcertHall(concertHall);
         validateEventCode(eventCode);
         validateEventTime(time);
-        return new Ticket(concertHall,
+        Ticket ticket = new Ticket(concertHall,
                 eventCode,
                 time);
+        NullChecker.checkObject(ticket);
+        return ticket;
     }
 
     public static Ticket createTicket() {
@@ -79,7 +89,7 @@ public class Ticket extends IdAbler implements Shareable {
 
     // Validators and mappers
     private static void validateId(String id) {
-        if (id.length() > 4) {
+        if (id != null && id.length() > 4) {
             throw new IllegalArgumentException("Ticket's id must contains maximum 4 characters");
         }
     }
@@ -162,6 +172,11 @@ public class Ticket extends IdAbler implements Shareable {
 
     // Overrides
     @Override
+    public void print() {
+        System.out.println("Ticket ID: " + id);
+    }
+
+    @Override
     public void share(String phoneNumber) {
         System.out.printf("Share ticket with ID {%s} by phone {%s}.\n", id, phoneNumber);
     }
@@ -170,11 +185,6 @@ public class Ticket extends IdAbler implements Shareable {
     public void share(String phoneNumber, String email) {
         System.out.printf("Share ticket with ID {%s} by phone {%s}" +
                 " and by email {%s}.\n", id, phoneNumber, email);
-    }
-
-    @Override
-    public void print() {
-        System.out.println("Ticket ID: " + id);
     }
 
     @Override
