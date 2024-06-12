@@ -5,6 +5,7 @@ import com.andersenlab.lesson2.abstraction.Printable;
 import com.andersenlab.lesson2.abstraction.Shareable;
 import com.andersenlab.lesson2.abstraction.annotation.NullChecker;
 import com.andersenlab.lesson2.abstraction.annotation.NullableWarning;
+import com.andersenlab.lesson2.util.RandomTicketGenerator;
 import com.andersenlab.lesson2.util.StadiumSector;
 
 import java.math.BigDecimal;
@@ -123,6 +124,13 @@ public class Ticket extends IdAbler implements Shareable, Printable {
         LocalDateTime dateTime = LocalDateTime
                 .ofInstant(instant, ZoneId.of("UTC"));
         return dateTime.toString();
+    }
+
+    // Other methods
+    public static Ticket createRandomTicket() {
+        Ticket ticket = new Ticket();
+        ticket.setId(RandomTicketGenerator.generateRandomID());
+        return ticket;
     }
 
     // Getters and Setters

@@ -1,7 +1,7 @@
 package andersenlab.lesson2;
 
-import com.andersenlab.lesson2.StadiumSector;
-import com.andersenlab.lesson2.Ticket;
+import com.andersenlab.lesson2.util.StadiumSector;
+import com.andersenlab.lesson2.entity.Ticket;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
