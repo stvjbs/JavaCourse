@@ -2,10 +2,9 @@ package com.andersenlab;
 
 public class BusTicket {
     String ticketClass;
-    String ticketType;
+    TicketType ticketType;
     String startDate;
     String price;
-
 
 
     public String getTicketClass() {
@@ -16,11 +15,11 @@ public class BusTicket {
         this.ticketClass = ticketClass;
     }
 
-    public String getTicketType() {
+    public TicketType getTicketType() {
         return ticketType;
     }
 
-    public void setTicketType(String ticketType) {
+    public void setTicketType(TicketType ticketType) {
         this.ticketType = ticketType;
     }
 
@@ -47,6 +46,6 @@ public class BusTicket {
                 ", ticketType='" + ticketType + '\'' +
                 ", startDate='" + startDate + '\'' +
                 ", price='" + price + '\'' +
-                '}';
+                '}' + "\n";
     }
 }

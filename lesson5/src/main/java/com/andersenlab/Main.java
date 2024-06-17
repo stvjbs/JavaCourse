@@ -10,7 +10,20 @@ public class Main {
     private static final String PATH = "lesson5/src/main/resources/tickets.txt";
 
     public static void main(String[] args) {
-        List<String> tickets = getFileInput(PATH);
+        Mapper mapper = new Mapper();
+        Validator validator = new Validator();
+        List<String> stringTickets = getFileInput(PATH);
+        List<BusTicket> tickets = mapper.mapStringListToTicketList(stringTickets);
+        List<BusTicket> validTickets = validator.validatePriceExisting(
+                validator.validateStartDateExisting(tickets));
+        int numberOfStartDateViolation =
+                tickets.size() - validator.validateStartDateExisting(tickets).size();
+        int numberOfPriceViolation =
+                tickets.size() - validator.validatePriceExisting(tickets).size();
+
+        System.out.printf(" Total = {%s}\n Valid = {%s}\n ", tickets.size(), validTickets.size());
+        System.out.println("Most popular violation = " +
+                (numberOfPriceViolation < numberOfStartDateViolation ? "start date" : "price"));
 
     }
 
