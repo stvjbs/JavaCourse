@@ -3,6 +3,7 @@ package com.andersenlab;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,5 +24,13 @@ public class Mapper {
         throw new RuntimeException();
     }
 
+    public static LocalDate mapStringToDate(String string) {
+            String[] date = string.split("-");
+            return LocalDate.of(Integer.parseInt(date[0]), Integer.parseInt(date[1]), Integer.parseInt(date[2]));
+    }
+
+    public static int mapStringToInt(String string) {
+        return Integer.parseInt(string);
+    }
 
 }
