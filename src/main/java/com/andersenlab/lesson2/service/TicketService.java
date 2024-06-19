@@ -18,6 +18,7 @@ public class TicketService {
             tickets.put(ticket.getId(), ticket);
         }
     }
+
     public Ticket addTicket(Ticket ticket) {
         tickets.put(ticket.getId(), ticket);
         return ticket;
