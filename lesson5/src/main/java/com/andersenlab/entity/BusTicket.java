@@ -1,4 +1,4 @@
-package com.andersenlab;
+package com.andersenlab.entity;
 
 public class BusTicket {
     String ticketClass;

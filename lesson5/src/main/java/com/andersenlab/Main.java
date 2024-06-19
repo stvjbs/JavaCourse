@@ -1,5 +1,10 @@
 package com.andersenlab;
 
+import com.andersenlab.entity.BusTicket;
+import com.andersenlab.util.InvalidTicketsCounter;
+import com.andersenlab.util.Mapper;
+import com.andersenlab.util.Validator;
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -15,14 +20,14 @@ public class Main {
 
         List<String> stringTickets = getFileInput(PATH);
         List<BusTicket> tickets = mapper.mapStringListToTicketList(stringTickets);
-
         List<BusTicket> validTickets = validator.validatePriceExisting(
                 validator.validateStartDateExistsInRequiredTypes(tickets));
 
-        int numberOfStartDateViolation =
-                tickets.size() - validator.validateStartDateExistsInRequiredTypes(tickets).size();
+        int numberOfStartDateViolation = InvalidTicketsCounter.countInvalidTickets(validator,
+                "validateStartDateExistsInRequiredTypes", tickets);
         int numberOfPriceViolation =
-                tickets.size() - validator.validatePriceExisting(tickets).size();
+                InvalidTicketsCounter.countInvalidTickets(validator,
+                        "validatePriceExisting", tickets);
 
         System.out.printf(" Total = {%s}\n Valid = {%s}\n ", tickets.size(), validTickets.size());
         System.out.println("Most popular violation = " +

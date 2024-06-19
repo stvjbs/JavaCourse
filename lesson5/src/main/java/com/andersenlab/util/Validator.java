@@ -1,4 +1,7 @@
-package com.andersenlab;
+package com.andersenlab.util;
+
+import com.andersenlab.entity.BusTicket;
+import com.andersenlab.entity.TicketType;
 
 import java.time.LocalDate;
 import java.util.EnumSet;
@@ -23,21 +26,20 @@ public class Validator {
 
     public List<BusTicket> validateStartDateNotInFuture(List<BusTicket> list) {
         return list.stream()
-                .filter(busTicket -> !stringNullOrBlank(busTicket.startDate))
-                .filter(busTicket -> !dateNotInFuture(busTicket.getStartDate()))
+                .filter(busTicket -> stringNotNullOrBlank(busTicket.getStartDate()))
+                .filter(busTicket -> !dateInFuture(busTicket.getStartDate()))
                 .toList();
     }
 
     public List<BusTicket> validatePriceEven(List<BusTicket> list) {
         return list.stream()
-                .filter(busTicket -> !stringNullOrBlank(busTicket.price))
-                .filter(busTicket -> priceEven(busTicket.price))
+                .filter(busTicket -> stringNotNullOrBlank(busTicket.getPrice()))
+                .filter(busTicket -> priceEven(busTicket.getPrice()))
                 .toList();
     }
 
-    //Custom booleans
-    private boolean stringNullOrBlank(String price) {
-        return price == null || price.isBlank();
+    private boolean stringNotNullOrBlank(String price) {
+        return price != null && !price.isBlank();
     }
 
     private boolean priceZeroNullOrBlank(String price) {
@@ -45,9 +47,9 @@ public class Validator {
                 price.equals("0");
     }
 
-    private boolean dateNotInFuture(String stringStartDate) {
-        LocalDate startdate = Mapper.mapStringToDate(stringStartDate);
-        return startdate.isAfter(LocalDate.now());
+    private boolean dateInFuture(String stringStartDate) {
+        LocalDate startDate = Mapper.mapStringToDate(stringStartDate);
+        return startDate.isAfter(LocalDate.now());
     }
 
     private boolean priceEven(String price) {
