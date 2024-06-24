@@ -1,29 +1,31 @@
 package com.andersenlab.arrayList;
 
-import java.util.Arrays;
 import java.util.Iterator;
 
 public class CustomArrayList<E> implements CustomList<E> {
     private int size;
     private E[] elements;
+    private int arrayLength = 10;
+
     public CustomArrayList() {
-        this.elements = (E[]) new Object[10];
+        this.elements = (E[]) new Object[arrayLength];
     }
 
-    public void extendSize(){
-        if (this.size > this.elements.length* 0.8){
-            int newArrayLength = this.elements.length * 2;
-            E[] newElements = (E[]) new Object[newArrayLength];
+    public void extendSize() {
+        if (this.size > this.arrayLength * 0.7) {
+            this.arrayLength *= 2;
+            E[] newElements = (E[]) new Object[arrayLength];
             System.arraycopy(this.elements, 0, newElements, 0, this.size);
             this.elements = newElements;
         }
     }
 
     @Override
-    public void add(E value) {
-        extendSize();
+    public boolean add(E value) {
         elements[size] = value;
         size++;
+        extendSize();
+        return true;
     }
 
     @Override
@@ -32,12 +34,13 @@ public class CustomArrayList<E> implements CustomList<E> {
     }
 
     @Override
-    public void remove(int index) {
+    public boolean remove(int index) {
         E[] newElements = (E[]) new Object[this.elements.length];
-        System.arraycopy(this.elements, 0,newElements, 0, index);
-        System.arraycopy(this.elements, index+1,newElements, index, elements.length-index-1);
+        System.arraycopy(this.elements, 0, newElements, 0, index);
+        System.arraycopy(this.elements, index + 1, newElements, index, elements.length - index - 1);
         this.elements = newElements;
         size--;
+        return true;
     }
 
     @Override
@@ -50,15 +53,11 @@ public class CustomArrayList<E> implements CustomList<E> {
         return new CustomIterator<>();
     }
 
-    @Override
-    public String toString() {
-        return "CustomArrayList{" +
-                "size=" + size +
-                ", elements=" + Arrays.toString(elements) +
-                '}';
+    public int getArrayLength() {
+        return arrayLength;
     }
 
-    private class CustomIterator<E> implements Iterator<E> {
+    private class CustomIterator<T> implements Iterator<T> {
 
         private int current = 0;
 
@@ -68,8 +67,8 @@ public class CustomArrayList<E> implements CustomList<E> {
         }
 
         @Override
-        public E next() {
-            return (E) elements[current++];
+        public T next() {
+            return (T) elements[current++];
         }
     }
 }
