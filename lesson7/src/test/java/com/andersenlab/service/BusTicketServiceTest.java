@@ -59,6 +59,11 @@ class BusTicketServiceTest {
     }
 
     @Test
+    void getBusTicketByIdExceptionTest() {
+        assertThrows(IllegalArgumentException.class, () -> busTicketService.getBusTicketById(67));
+    }
+
+    @Test
     void getBusTicketsByType() {
         BusTicketService newBusTicketService = new BusTicketService();
         BusTicket busTicket1 = newBusTicketService.createBusTicket(TicketType.TYPE_20_MINUTES, dateTime);
