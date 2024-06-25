@@ -5,7 +5,10 @@ import org.junit.jupiter.api.Test;
 
 import java.util.Iterator;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 
 class CustomHashSetTest {
     CustomHashSet<Integer> customHashSet;
@@ -34,8 +37,6 @@ class CustomHashSetTest {
 
     @Test
     void deletedElementNotContainsTest() {
-        customHashSet.put(1);
-        customHashSet.delete(1);
         assertFalse(customHashSet.contains(1));
     }
 

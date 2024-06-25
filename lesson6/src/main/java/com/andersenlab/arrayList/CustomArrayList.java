@@ -3,16 +3,18 @@ package com.andersenlab.arrayList;
 import java.util.Iterator;
 
 public class CustomArrayList<E> implements CustomList<E> {
+    private final double COEFFICIENT_FOR_EXTENDING_ARRAY = 0.7;
     private int size;
     private E[] elements;
     private int arrayLength = 10;
+
 
     public CustomArrayList() {
         this.elements = (E[]) new Object[arrayLength];
     }
 
     public void extendSize() {
-        if (this.size > this.arrayLength * 0.7) {
+        if (this.size > this.arrayLength * COEFFICIENT_FOR_EXTENDING_ARRAY) {
             this.arrayLength *= 2;
             E[] newElements = (E[]) new Object[arrayLength];
             System.arraycopy(this.elements, 0, newElements, 0, this.size);
@@ -30,11 +32,17 @@ public class CustomArrayList<E> implements CustomList<E> {
 
     @Override
     public E get(int index) {
+        if (index < 0 || index >= elements.length) {
+            throw new IndexOutOfBoundsException("Index is out of bounds");
+        }
         return elements[index];
     }
 
     @Override
     public boolean remove(int index) {
+        if (index < 0 || index >= elements.length) {
+            throw new IndexOutOfBoundsException("Index is out of bounds");
+        }
         E[] newElements = (E[]) new Object[this.elements.length];
         System.arraycopy(this.elements, 0, newElements, 0, index);
         System.arraycopy(this.elements, index + 1, newElements, index, elements.length - index - 1);

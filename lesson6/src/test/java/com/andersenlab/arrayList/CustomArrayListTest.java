@@ -3,16 +3,19 @@ package com.andersenlab.arrayList;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.util.Iterator;
-
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class CustomArrayListTest {
     CustomArrayList<Integer> customArrayList;
+
     @BeforeEach
     void setUp() {
         this.customArrayList = new CustomArrayList<>();
     }
+
     @Test
     void extendSizeTest() {
         customArrayList.add(1);
@@ -46,11 +49,21 @@ class CustomArrayListTest {
     }
 
     @Test
+    void getElementByIndexOutOfBoundTest() {
+        assertThrows(IndexOutOfBoundsException.class, () -> customArrayList.get(55));
+    }
+
+    @Test
     void removeElementByIndexTest() {
         customArrayList.add(1);
         customArrayList.add(2);
         customArrayList.remove(0);
         assertEquals(2, customArrayList.get(0));
+    }
+
+    @Test
+    void removeElementByIndexOutOfBoundTest() {
+        assertThrows(IndexOutOfBoundsException.class, () -> customArrayList.remove(55));
     }
 
     @Test
