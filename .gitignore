@@ -3,3 +3,13 @@ target/
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
 !**/src/test/**/target/
+**.class
+
+# Ignore Gradle build output
+build/
+**/build/
+.gradle/
+gradle/
+**.bat
+# Ignore Gradle GUI config
+gradle-app.setting
