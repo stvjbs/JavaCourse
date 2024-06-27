@@ -1,6 +1,4 @@
-DROP SCHEMA IF EXISTS my_ticket_service_db_schema;
-CREATE SCHEMA IF NOT EXISTS my_ticket_service_db_schema;
-SET search_path TO my_ticket_service_db_schema;
+SET search_path TO public;
 
 CREATE TYPE ticket_type AS ENUM ('DAY', 'WEEK', 'MONTH', 'YEAR');
 CREATE TABLE users (
