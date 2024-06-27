@@ -1,5 +1,9 @@
 .idea/
 target/
-!.mvn/wrapper/maven-wrapper.jar
-!**/src/main/**/target/
-!**/src/test/**/target/
+**.class
+build/
+**/build/
+.gradle/
+gradle/
+**.bat
+gradle-app.setting
