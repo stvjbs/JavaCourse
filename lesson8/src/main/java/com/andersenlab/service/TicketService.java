@@ -8,7 +8,7 @@ import com.andersenlab.entity.TicketType;
 import java.util.List;
 
 public class TicketService implements TicketCRUDable {
-    private TicketDAO ticketDAO;
+    private final TicketDAO ticketDAO;
 
     public TicketService() {
         ticketDAO = new TicketDAO();

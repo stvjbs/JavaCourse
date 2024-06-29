@@ -9,8 +9,8 @@ import com.andersenlab.entity.User;
 import java.util.List;
 
 public class UserService implements UserCRUDable {
-    private UserDAO userDAO;
-    private TicketDAO ticketDAO;
+    private final UserDAO userDAO;
+    private final TicketDAO ticketDAO;
 
     public UserService() {
         userDAO = new UserDAO();
