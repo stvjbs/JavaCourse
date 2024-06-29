@@ -2,26 +2,11 @@ package com.andersenlab.dao;
 
 import com.andersenlab.entity.User;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class UserService {
-    private final String url = "jdbc:postgresql://localhost:5432/my_ticket_service_db";
-    private final String user = "user";
-    private final String password = "password";
-    Connection connection;
-
-    public UserService() {
-        try {
-            this.connection = DriverManager.getConnection(
-                    url, user, password);
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        }
-    }
+public class UserDAO extends ConnectionProviderDAO {
 
     public boolean saveUser(User user) {
         String insertQuery = "INSERT INTO users (name, creation_date) VALUES (?, ?)";
@@ -51,5 +36,17 @@ public class UserService {
             System.out.println(e.getMessage());
         }
         throw new IllegalArgumentException("No such user");
+    }
+
+    public void deleteUserById(int id) {
+        getUserById(id);
+        String deleteQuery = "DELETE FROM users WHERE id = ?";
+        try (PreparedStatement preparedStatement = connection.prepareStatement(deleteQuery)) {
+            preparedStatement.setInt(1, id);
+            preparedStatement.execute();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        throw new IllegalArgumentException("No such user.");
     }
 }
