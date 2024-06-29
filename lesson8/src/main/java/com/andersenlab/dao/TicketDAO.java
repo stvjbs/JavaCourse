@@ -1,5 +1,6 @@
 package com.andersenlab.dao;
 
+import com.andersenlab.dao.impl.TicketCRUDable;
 import com.andersenlab.entity.Ticket;
 import com.andersenlab.entity.TicketType;
 
@@ -10,8 +11,9 @@ import java.sql.Types;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TicketDAO extends ConnectionProviderDAO {
+public class TicketDAO extends ConnectionProviderDAO implements TicketCRUDable {
 
+    @Override
     public void saveTicket(Ticket ticket) {
         String insertQuery = "INSERT INTO tickets (user_id, ticket_type, creation_date) VALUES (?, ?, ?)";
         try (PreparedStatement preparedStatement = connection.prepareStatement(insertQuery)) {
@@ -24,6 +26,7 @@ public class TicketDAO extends ConnectionProviderDAO {
         }
     }
 
+    @Override
     public Ticket getTicketById(int id) {
         String selectQuery = "SELECT * FROM tickets WHERE id = ?";
         try (PreparedStatement preparedStatement = connection.prepareStatement(selectQuery)) {
@@ -43,6 +46,7 @@ public class TicketDAO extends ConnectionProviderDAO {
         throw new IllegalArgumentException("No such ticket");
     }
 
+    @Override
     public List<Ticket> getTicketsByUserId(int userId) {
         String selectQuery = "SELECT * FROM tickets WHERE user_id = ?";
         try (PreparedStatement preparedStatement = connection.prepareStatement(selectQuery)) {
@@ -57,12 +61,14 @@ public class TicketDAO extends ConnectionProviderDAO {
                 ticket.setCreationDate(resultSet.getTimestamp("creation_date"));
                 tickets.add(ticket);
             }
-            if(!tickets.isEmpty()) return tickets;
+            if (!tickets.isEmpty()) return tickets;
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
         throw new IllegalArgumentException("No tickets by user id " + userId);
     }
+
+    @Override
     public Ticket updateTicketTypeByTicketId(int ticketId, TicketType ticketType) {
         String updateQuery = "UPDATE tickets SET ticket_type = ? WHERE id = ?";
         try (PreparedStatement preparedStatement = connection.prepareStatement(updateQuery)) {
@@ -76,15 +82,15 @@ public class TicketDAO extends ConnectionProviderDAO {
         throw new IllegalArgumentException("No such ticket");
     }
 
+    @Override
     public void deleteTicketById(int id) {
         getTicketById(id);
         String deleteQuery = "DELETE FROM tickets WHERE id = ?";
-        try(PreparedStatement preparedStatement = connection.prepareStatement(deleteQuery)){
+        try (PreparedStatement preparedStatement = connection.prepareStatement(deleteQuery)) {
             preparedStatement.setInt(1, id);
             preparedStatement.execute();
             System.out.printf("Ticket with id {%s} deleted.\n", id);
-        }
-        catch (SQLException e) {
+        } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
     }
