@@ -15,8 +15,8 @@ public class TicketService implements TicketCRUDable {
     }
 
     @Override
-    public void saveTicket(Ticket ticket) {
-        ticketDAO.saveTicket(ticket);
+    public boolean saveTicket(Ticket ticket) {
+        return ticketDAO.saveTicket(ticket);
     }
 
     @Override
@@ -38,4 +38,5 @@ public class TicketService implements TicketCRUDable {
     public void deleteTicketById(int id) {
         ticketDAO.deleteTicketById(id);
     }
+
 }

@@ -10,15 +10,17 @@ import java.sql.SQLException;
 public class UserDAO extends ConnectionProviderDAO implements UserCRUDable {
 
     @Override
-    public void saveUser(User user) {
+    public boolean saveUser(User user) {
         String insertQuery = "INSERT INTO users (name, creation_date) VALUES (?, ?)";
         try (PreparedStatement preparedStatement = connection.prepareStatement(insertQuery)) {
             preparedStatement.setString(1, user.getName());
             preparedStatement.setTimestamp(2, user.getCreationDate());
             preparedStatement.execute();
+            return true;
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
+        return false;
     }
 
     @Override

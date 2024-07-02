@@ -18,8 +18,8 @@ public class UserService implements UserCRUDable {
     }
 
     @Override
-    public void saveUser(User user) {
-        userDAO.saveUser(user);
+    public boolean saveUser(User user) {
+        return userDAO.saveUser(user);
     }
 
     @Override

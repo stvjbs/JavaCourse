@@ -14,16 +14,18 @@ import java.util.List;
 public class TicketDAO extends ConnectionProviderDAO implements TicketCRUDable {
 
     @Override
-    public void saveTicket(Ticket ticket) {
+    public boolean saveTicket(Ticket ticket) {
         String insertQuery = "INSERT INTO tickets (user_id, ticket_type, creation_date) VALUES (?, ?, ?)";
         try (PreparedStatement preparedStatement = connection.prepareStatement(insertQuery)) {
             preparedStatement.setInt(1, ticket.getUserId());
             preparedStatement.setObject(2, ticket.getTicketType(), Types.OTHER);
             preparedStatement.setTimestamp(3, ticket.getCreationDate());
             preparedStatement.execute();
+            return true;
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
+        return false;
     }
 
     @Override

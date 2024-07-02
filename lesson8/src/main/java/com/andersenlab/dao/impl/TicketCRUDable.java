@@ -6,9 +6,13 @@ import com.andersenlab.entity.TicketType;
 import java.util.List;
 
 public interface TicketCRUDable {
-    void saveTicket(Ticket ticket);
+    boolean saveTicket(Ticket ticket);
+
     Ticket getTicketById(int id);
+
     List<Ticket> getTicketsByUserId(int userId);
+
     Ticket updateTicketTypeByTicketId(int ticketId, TicketType ticketType);
+
     void deleteTicketById(int id);
 }
