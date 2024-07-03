@@ -24,6 +24,7 @@ public class Ticket {
     @Column(name = "user_id")
     private int userId;
     @Column(name = "ticket_type")
+    @Enumerated(EnumType.STRING)
     private TicketType ticketType;
     @Column(name = "creation_date")
     private Timestamp creationDate;

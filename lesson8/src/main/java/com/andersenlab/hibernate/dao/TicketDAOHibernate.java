@@ -3,7 +3,6 @@ package com.andersenlab.hibernate.dao;
 import com.andersenlab.dao.impl.TicketCRUDable;
 import com.andersenlab.entity.Ticket;
 import com.andersenlab.entity.TicketType;
-import com.andersenlab.hibernate.SessionFactoryProvider;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;

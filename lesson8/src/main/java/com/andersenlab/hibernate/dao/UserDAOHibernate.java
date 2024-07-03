@@ -2,7 +2,6 @@ package com.andersenlab.hibernate.dao;
 
 import com.andersenlab.dao.impl.UserCRUDable;
 import com.andersenlab.entity.User;
-import com.andersenlab.hibernate.SessionFactoryProvider;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
