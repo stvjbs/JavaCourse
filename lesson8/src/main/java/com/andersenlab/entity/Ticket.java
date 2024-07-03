@@ -1,49 +1,36 @@
 package com.andersenlab.entity;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import lombok.Data;
+import org.hibernate.annotations.Type;
+
 import java.sql.Timestamp;
 
+@Data
+@Entity
+@Table(name = "tickets")
 public class Ticket {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private int id;
+    @Column(name = "user_id")
     private int userId;
+    @Column(name = "ticket_type")
     private TicketType ticketType;
+    @Column(name = "creation_date")
     private Timestamp creationDate;
 
     public Ticket() {
         this.creationDate = new Timestamp(System.currentTimeMillis());
     }
-
-    public int getId() {
-        return id;
-    }
-
-    public int getUserId() {
-        return userId;
-    }
-
-    public TicketType getTicketType() {
-        return ticketType;
-    }
-
-    public Timestamp getCreationDate() {
-        return creationDate;
-    }
-
-    public void setUserId(int userId) {
-        this.userId = userId;
-    }
-
-    public void setTicketType(TicketType ticketType) {
-        this.ticketType = ticketType;
-    }
-
-    public void setCreationDate(Timestamp creationDate) {
-        this.creationDate = creationDate;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
     @Override
     public String toString() {
         return "Ticket{" +
