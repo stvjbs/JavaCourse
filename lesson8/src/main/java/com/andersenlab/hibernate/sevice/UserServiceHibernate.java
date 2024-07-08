@@ -1,9 +1,11 @@
 package com.andersenlab.hibernate.sevice;
 
 import com.andersenlab.dao.impl.UserCRUDable;
+import com.andersenlab.entity.TicketType;
 import com.andersenlab.entity.User;
 import com.andersenlab.hibernate.dao.TicketDAOHibernate;
 import com.andersenlab.hibernate.dao.UserDAOHibernate;
+import jakarta.transaction.Transactional;
 
 public class UserServiceHibernate implements UserCRUDable {
     UserDAOHibernate userDAO;
@@ -25,9 +27,17 @@ public class UserServiceHibernate implements UserCRUDable {
     }
 
     @Override
+    @Transactional
     public void deleteUserById(int id) {
+        ticketDAO.getTicketsByUserId(id).forEach(x -> ticketDAO.deleteTicketById(x.getId()));
         userDAO.deleteUserById(id);
-        ticketDAO.getTicketsByUserId(id)
-                .forEach(x-> ticketDAO.deleteTicketById(x.getId()));
+    }
+
+    @Transactional
+    public void updateUserAndUsersTickets(int userId,
+                                          String newUserName, TicketType newTicketType) {
+        userDAO.updateUser(userId, newUserName);
+        ticketDAO.getTicketsByUserId(userId).forEach(x ->
+                ticketDAO.updateTicketTypeByTicketId(x.getId(), newTicketType));
     }
 }
