@@ -13,3 +13,4 @@ CREATE TABLE tickets (
                         creation_date TIMESTAMP NOT NULL,
                         FOREIGN KEY (user_id) REFERENCES users(id)
 );
+CREATE CAST (varchar AS TicketType) WITH INOUT AS IMPLICIT;

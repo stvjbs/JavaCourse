@@ -7,7 +7,6 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class TicketDAOHibernate implements TicketCRUDable {
@@ -31,24 +30,14 @@ public class TicketDAOHibernate implements TicketCRUDable {
 
     @Override
     public List<Ticket> getTicketsByUserId(int userId) {
-        String selectQuery = "FROM tickets WHERE userId = :userId";
-        Session session = SessionFactoryProvider.getSessionFactory().openSession();
-        Transaction tx = session.beginTransaction();
-        try {
-            Query<Ticket> query = session.createQuery(selectQuery, Ticket.class);
+        try (Session session = SessionFactoryProvider.getSessionFactory().openSession()) {
+            Transaction tx = session.beginTransaction();
+            Query query = session.createQuery("select t from Ticket t where t.userId = :userId");
             query.setParameter("userId", userId);
-            List<Ticket> tickets = query.getResultList();
-            if (!tickets.isEmpty()) {
-                return tickets;
-            }
-        } catch (Exception e) {
-            System.out.println("Error fetching tickets: " + e.getMessage());
-        }
-        finally {
+            List<Ticket> tickets = query.list();
             tx.commit();
-            session.close();
+            return tickets;
         }
-        return new ArrayList<Ticket>();
     }
 
     @Override
@@ -75,8 +64,8 @@ public class TicketDAOHibernate implements TicketCRUDable {
             session.delete(ticket);
             tx.commit();
             session.close();
-        }
-        throw new IllegalArgumentException("No ticket found for id " + id);
+        } else throw new IllegalArgumentException("No ticket found for id " + id);
     }
+
 }
 

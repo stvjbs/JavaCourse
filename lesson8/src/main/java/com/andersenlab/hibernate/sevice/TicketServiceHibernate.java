@@ -4,12 +4,12 @@ import com.andersenlab.dao.impl.TicketCRUDable;
 import com.andersenlab.entity.Ticket;
 import com.andersenlab.entity.TicketType;
 import com.andersenlab.hibernate.dao.TicketDAOHibernate;
-import com.andersenlab.hibernate.dao.UserDAOHibernate;
 
 import java.util.List;
 
 public class TicketServiceHibernate implements TicketCRUDable {
-    TicketDAOHibernate ticketDAOHibernate =new TicketDAOHibernate();
+    TicketDAOHibernate ticketDAOHibernate = new TicketDAOHibernate();
+
     @Override
     public boolean saveTicket(Ticket ticket) {
         return ticketDAOHibernate.saveTicket(ticket);
