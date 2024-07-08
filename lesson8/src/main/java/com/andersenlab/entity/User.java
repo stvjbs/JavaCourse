@@ -6,9 +6,11 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-import jdk.jfr.DataAmount;
+import lombok.Data;
 
 import java.sql.Timestamp;
+
+@Data
 @Entity
 @Table(name = "users")
 public class User {
@@ -21,29 +23,8 @@ public class User {
     @Column(name = "creation_date")
     private Timestamp creationDate;
 
-
     public User() {
         this.creationDate = new Timestamp(System.currentTimeMillis());
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setCreationDate(Timestamp creationDate) {
-        this.creationDate = creationDate;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public Timestamp getCreationDate() {
-        return creationDate;
     }
 
     @Override
@@ -55,3 +36,5 @@ public class User {
                 '}';
     }
 }
+
+

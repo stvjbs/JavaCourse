@@ -32,4 +32,14 @@ public class UserDAOHibernate implements UserCRUDable {
         tx.commit();
         session.close();
     }
+
+    public void updateUser(int userId, String name) {
+        Session session = SessionFactoryProvider.getSessionFactory().openSession();
+        Transaction tx = session.beginTransaction();
+        User user = session.get(User.class, userId);
+        user.setName(name);
+        session.update(user);
+        tx.commit();
+        session.close();
+    }
 }
