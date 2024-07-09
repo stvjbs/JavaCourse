@@ -10,7 +10,7 @@ import java.util.List;
 @Service
 public class TicketServiceImpl implements TicketService {
 
-    private TicketRepository ticketRepository;
+    private final TicketRepository ticketRepository;
 
     public TicketServiceImpl(TicketRepository ticketRepository) {
         this.ticketRepository = ticketRepository;
@@ -27,6 +27,11 @@ public class TicketServiceImpl implements TicketService {
     }
 
     @Override
+    public List<Ticket> getTicketsByUserId(int userId) {
+        return ticketRepository.findByUserId(userId);
+    }
+
+    @Override
     public List<Ticket> getAllTickets() {
         return ticketRepository.findAll();
     }
@@ -34,5 +39,15 @@ public class TicketServiceImpl implements TicketService {
     @Override
     public void deleteTicket(int id) {
         ticketRepository.deleteById(id);
+    }
+
+    @Override
+    public Ticket updateTicketType(int id, Ticket.TicketType type) {
+        Ticket newTicket = ticketRepository.findById(id).orElse(null);
+        if (newTicket != null) {
+            newTicket.setTicketType(type);
+            return ticketRepository.save(newTicket);
+        }
+        throw new IllegalArgumentException("Ticket not found");
     }
 }

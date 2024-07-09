@@ -9,6 +9,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.Data;
+import org.hibernate.annotations.CreationTimestamp;
 
 import java.sql.Timestamp;
 
@@ -26,11 +27,9 @@ public class Ticket {
     @Enumerated(EnumType.STRING)
     private TicketType ticketType;
     @Column(name = "creation_date")
+    @CreationTimestamp
     private Timestamp creationDate;
 
-    public Ticket() {
-        this.creationDate = new Timestamp(System.currentTimeMillis());
-    }
     @Override
     public String toString() {
         return "Ticket{" +
