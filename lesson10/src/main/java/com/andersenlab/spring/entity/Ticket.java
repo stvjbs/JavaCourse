@@ -7,6 +7,8 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.Data;
 import org.hibernate.annotations.CreationTimestamp;
@@ -21,8 +23,9 @@ public class Ticket {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private int id;
-    @Column(name = "user_id")
-    private int userId;
+    @JoinColumn(name = "user_id")
+    @ManyToOne
+    private User user;
     @Column(name = "ticket_type")
     @Enumerated(EnumType.STRING)
     private TicketType ticketType;
@@ -34,7 +37,7 @@ public class Ticket {
     public String toString() {
         return "Ticket{" +
                 "id=" + id +
-                ", userId=" + userId +
+                ", userId=" + user.getId() +
                 ", ticketType=" + ticketType +
                 ", creationDate=" + creationDate +
                 '}';

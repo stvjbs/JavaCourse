@@ -4,12 +4,17 @@ import com.andersenlab.spring.entity.User;
 import com.andersenlab.spring.repository.TicketRepository;
 import com.andersenlab.spring.repository.UserRepository;
 import com.andersenlab.spring.service.UserService;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
 import java.util.List;
 
 @Service
 public class UserServiceImpl implements UserService {
+
     private final UserRepository userRepository;
     private final TicketRepository ticketRepository;
 
@@ -47,5 +52,17 @@ public class UserServiceImpl implements UserService {
             return userRepository.save(newUser);
         }
         throw new IllegalArgumentException("User not found");
+    }
+
+    public List<User> getUsersFromFile(Resource resource) {
+        try {
+            ObjectMapper mapper = new ObjectMapper();
+            return mapper.readValue(resource.getInputStream(),
+                    new TypeReference<>() {
+                    });
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+        throw new RuntimeException("File not found");
     }
 }

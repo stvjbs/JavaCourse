@@ -5,7 +5,7 @@ import com.andersenlab.spring.entity.Ticket;
 import java.util.List;
 
 public interface TicketService {
-    Ticket saveTicket(Ticket ticket);
+    Ticket saveTicketAndUpdateUserStatus(Ticket ticket);
 
     Ticket getTicketById(int id);
 
