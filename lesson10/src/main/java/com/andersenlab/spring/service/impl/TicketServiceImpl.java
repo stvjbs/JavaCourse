@@ -19,7 +19,7 @@ import java.util.List;
 public class TicketServiceImpl implements TicketService {
     private final UserRepository userRepository;
     private final TicketRepository ticketRepository;
-    @Value("${app.update.user.and.create.ticket.enabled}")
+    @Value("${app.updateUserAndCreateTicketEnabled}")
     private boolean isOperationEnabled;
 
     public TicketServiceImpl(UserRepository userRepository, TicketRepository ticketRepository) {

@@ -5,9 +5,5 @@ spring:
     username: user
     password: password
 app:
-  update:
-    user:
-      and:
-        create:
-          ticket:
-            enabled: true
+  updateUserAndCreateTicketEnabled: true
+  createDataSource: true
