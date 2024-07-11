@@ -8,7 +8,7 @@ import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import javax.sql.DataSource;
 
 @Configuration
-@ConditionalOnProperty(name = "spring.datasource.url")
+@ConditionalOnProperty(name = "app.createDataSource")
 public class DataSourceProvider {
     private static final String url = "jdbc:postgresql://localhost:5432/my_ticket_service_db";
     private static final String user = "user";
