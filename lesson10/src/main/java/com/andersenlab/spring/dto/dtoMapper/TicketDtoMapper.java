@@ -7,7 +7,7 @@ public class TicketDtoMapper {
     public static TicketDto toDto(Ticket ticket) {
         TicketDto ticketDto = new TicketDto();
         ticketDto.setId(ticket.getId());
-        ticketDto.setUser(UserDtoMapper.toUserDto(ticket.getUser()));
+        ticketDto.setUserDto(UserDtoMapper.toUserDto(ticket.getUser()));
         ticketDto.setTicketType(ticket.getTicketType());
         return ticketDto;
     }
@@ -15,7 +15,7 @@ public class TicketDtoMapper {
     public static Ticket toTicket(TicketDto ticketDto) {
         Ticket ticket = new Ticket();
         ticket.setId(ticketDto.getId());
-        ticket.setUser(UserDtoMapper.toUser(ticketDto.getUser()));
+        ticket.setUser(UserDtoMapper.toUser(ticketDto.getUserDto()));
         ticket.setTicketType(ticketDto.getTicketType());
         return ticket;
     }

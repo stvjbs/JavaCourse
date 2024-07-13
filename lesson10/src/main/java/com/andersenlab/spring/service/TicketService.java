@@ -1,17 +1,17 @@
 package com.andersenlab.spring.service;
 
+import com.andersenlab.spring.dto.TicketDto;
 import com.andersenlab.spring.entity.Ticket;
 
 import java.util.List;
 
 public interface TicketService {
-    Ticket saveTicketAndUpdateUserStatus(Ticket ticket);
 
-    Ticket getTicketById(int id);
+    TicketDto getTicketById(int id);
 
-    List<Ticket> getTicketsByUserId(int userId);
+    List<TicketDto> getTicketsByUserId(int userId);
 
-    List<Ticket> getAllTickets();
+    List<TicketDto> getAllTickets();
 
     void deleteTicket(int id);
 
