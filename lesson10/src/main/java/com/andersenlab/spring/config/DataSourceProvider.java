@@ -14,9 +14,6 @@ public class DataSourceProvider {
     private static final String user = "user";
     private static final String password = "password";
 
-    public DataSourceProvider() {
-    }
-
     @Bean
     public DataSource getDataSource() {
         return new DriverManagerDataSource(url, user, password);
