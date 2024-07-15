@@ -7,3 +7,7 @@ spring:
 app:
   createDataSource: true
   updateUserAndCreateTicketEnabled: true
+  security:
+    login: stvjbs
+    password: 123456
+    role: admin
