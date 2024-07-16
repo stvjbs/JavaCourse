@@ -1,0 +1,22 @@
+[
+  {
+    "user": {
+      "id": 1
+    },
+    "ticketType": "YEAR",
+    "creationDate": "2024-07-10T20:52:28.328538"
+  },
+  {
+    "user": {
+      "id": 2
+    },
+    "ticketType": "MONTH",
+    "creationDate": "2024-07-10T21:00:00.000000"
+  },
+  {
+    "user": {
+      "id": 3
+    },
+    "ticketType": "WEEK",
+    "creationDate": "2024-07-11T08:30:45.123456"
+  }]
