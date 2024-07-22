@@ -1,17 +1,17 @@
 package com.andersenlab.spring.service;
 
-import com.andersenlab.spring.entity.User;
+import com.andersenlab.spring.dto.UserDto;
 
 import java.util.List;
 
 public interface UserService {
-    User saveUser(User user);
+    UserDto saveUser(UserDto user);
 
-    User getUserById(int id);
+    UserDto getUserById(int id);
 
-    List<User> getAllUsers();
+    List<UserDto> getAllUsers();
 
-    User updateUserName(int id, String name);
+    UserDto updateUserName(int id, String name);
 
     void deleteUser(int id);
 }
