@@ -4,7 +4,9 @@ CREATE TYPE TicketType AS ENUM ('DAY', 'WEEK', 'MONTH', 'YEAR');
 CREATE TABLE users (
                       id SERIAL PRIMARY KEY,
                       name VARCHAR(255) NOT NULL,
-                      creation_date TIMESTAMP NOT NULL
+                      creation_date TIMESTAMP NOT NULL,
+                      status BOOLEAN
+
 );
 CREATE TABLE tickets (
                         id SERIAL PRIMARY KEY,

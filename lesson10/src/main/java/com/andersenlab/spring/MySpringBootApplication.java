@@ -7,6 +7,7 @@ import com.andersenlab.spring.service.impl.UserServiceImpl;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
+import org.springframework.core.io.Resource;
 
 @SpringBootApplication
 public class MySpringBootApplication {
@@ -23,30 +24,21 @@ public class MySpringBootApplication {
 
         Ticket ticket = new Ticket();
         ticket.setTicketType(Ticket.TicketType.MONTH);
-        ticket.setUserId(1);
+        ticket.setUser(user);
         Ticket ticket2 = new Ticket();
         ticket2.setTicketType(Ticket.TicketType.YEAR);
-        ticket2.setUserId(1);
+        ticket2.setUser(user);
         Ticket ticket3 = new Ticket();
         ticket3.setTicketType(Ticket.TicketType.WEEK);
-        ticket3.setUserId(2);
+        ticket3.setUser(user2);
         Ticket ticket4 = new Ticket();
         ticket4.setTicketType(Ticket.TicketType.DAY);
-        ticket4.setUserId(2);
+        ticket4.setUser(user2);
 
-        userService.saveUser(user);
-        userService.saveUser(user2);
-        ticketService.saveTicket(ticket);
-        ticketService.saveTicket(ticket2);
-        ticketService.saveTicket(ticket3);
-        System.out.println(userService.getUserById(1));
-        System.out.println(ticketService.getTicketById(2));
-        System.out.println(ticketService.getTicketsByUserId(2));
-        userService
-                .updateUserName(2, "Steven Spielberg");
-        userService.deleteUser(1);
-        ticketService.updateTicketType(3, Ticket.TicketType.MONTH);
-        ticketService.deleteTicket(4);
+        Resource ticketsFile = context.getResource("classpath:tickets.json");
+        Resource usersFile = context.getResource("classpath:users.json");
 
+        userService.getUsersFromFile(usersFile).forEach(userService::saveUser);
+        ticketService.getTicketsFromFile(ticketsFile).forEach(ticketService::saveTicketAndUpdateUserStatus);
     }
 }

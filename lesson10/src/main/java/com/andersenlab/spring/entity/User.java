@@ -24,6 +24,8 @@ public class User {
     @Column(name = "creation_date")
     @CreationTimestamp
     private Timestamp creationDate;
+    @Column(name = "status")
+    private boolean userStatus;
 
     @Override
     public String toString() {

@@ -4,3 +4,6 @@ spring:
     url: jdbc:postgresql://localhost:5432/my_ticket_service_db
     username: user
     password: password
+app:
+  updateUserAndCreateTicketEnabled: true
+  createDataSource: true
